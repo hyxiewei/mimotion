@@ -1,0 +1,25 @@
+name: Keepalive 仓库保活
+on:
+  schedule:
+    # 每周一凌晨 01:00 北京时间自动跑一次
+    - cron: "0 1 * * 1"
+      timezone: Asia/Shanghai
+  workflow_dispatch: # 支持手动触发测试
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 必须开启写入权限，才能提交
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 空提交保活
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit --allow-empty -m "keepalive: 仓库保活"
+          git push
