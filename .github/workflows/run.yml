@@ -3,7 +3,7 @@ name: 刷步数
 on:
   schedule:
     - cron: "43 10 * * *"
-      timezone: "Asia/Shanghai"
+     # timezone: "Asia/Shanghai"
   workflow_dispatch:
 
 
